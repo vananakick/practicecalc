@@ -17,12 +17,12 @@ class Main(QDialog):
 
         ### 수식 입력과 답 출력을 위한 LineEdit 위젯 생성
         label_equation = QLabel("Equation: ")
-        label_solution = QLabel("Solution: ")
+        label_solution = QLabel("")        # 이름 없애기
         self.equation = QLineEdit("")
         self.solution = QLineEdit("")
 
         ### layout_equation_solution 레이아웃에 수식, 답 위젯을 추가
-        layout_equation_solution.addRow(label_equation, self.equation)
+#        layout_equation_solution.addRow(label_equation, self.equation)  # 숫자 입력 표시부분 통합을 위해 주석처리
         layout_equation_solution.addRow(label_solution, self.solution)
 
         ### 사칙연상 버튼 생성
@@ -96,11 +96,17 @@ class Main(QDialog):
         equation = self.equation.text()
         equation += str(num)
         self.equation.setText(equation)
+        solution = self.equation.text()        # soultion 결과 창에 같은 결과 나오도록 추가
+        solution += str(num)
+        self.solution.setText(equation)
 
     def button_operation_clicked(self, operation):
         equation = self.equation.text()
         equation += operation
         self.equation.setText(equation)
+        solution = self.equation.text()        # soultion 결과 창에 같은 결과 나오도록 추가
+        solution += operation
+        self.solution.setText(equation)
 
     def button_equal_clicked(self):
         equation = self.equation.text()
@@ -115,6 +121,10 @@ class Main(QDialog):
         equation = self.equation.text()
         equation = equation[:-1]
         self.equation.setText(equation)
+        solution = self.equation.text()        # soultion 결과 창에 같은 결과 나오도록 추가
+        solution += solution[:-1]
+        self.solution.setText(equation)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
