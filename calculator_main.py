@@ -33,9 +33,7 @@ class Main(QDialog):
 
         ### layout_equation_solution 레이아웃에 수식, 답 위젯을 추가
 #         layout_equation_solution.addRow(label_equation, self.equation)   # 주석처리
-        layout_equation_solution.addRow(label_solution, self.solution)
-    
-    
+        layout_equation_solution.addRow(label_solution, self.solution)      
     
 
         ### 사칙연상 버튼 생성 
@@ -53,7 +51,7 @@ class Main(QDialog):
         button_reciprocal = QPushButton("1/x")  # 역수
         button_square = QPushButton("x²")  # 제곱
         button_root = QPushButton("√x")  # 제곱근
-        button_divide = QPushButton("/")
+        button_division = QPushButton("/")
         
         #3번째줄 789 *
         button_7 = QPushButton("7")
@@ -83,15 +81,27 @@ class Main(QDialog):
         button_equal = QPushButton("=")
 
 
+        number_button_dict = {}
+        for number in range(0, 10):
+            number_button_dict[number] = QPushButton(str(number))
+            number_button_dict[number].clicked.connect(lambda state, num = number:
+                                                       self.number_button_clicked(num))
+
+
         
 
         ### 사칙연산 버튼을 클릭했을 때, 각 사칙연산 부호가 수식창에 추가될 수 있도록 시그널 설정
         button_plus.clicked.connect(lambda state, operation = "+": self.button_operation_clicked(operation))
         button_minus.clicked.connect(lambda state, operation = "-": self.button_operation_clicked(operation))
         button_product.clicked.connect(lambda state, operation = "*": self.button_operation_clicked(operation))
-#         button_division.clicked.connect(lambda state, operation = "/": self.button_operation_clicked(operation))
+        button_division.clicked.connect(lambda state, operation = "/": self.button_operation_clicked(operation))        
+        button_remainder.clicked.connect(lambda state, operation="%": self.button_operation_clicked(operation))
         
-#         button_remainder.clicked.connect(lambda state, operation="%": self.button_operation_clicked(operation))
+        
+        button_equal.clicked.connect(self.button_equal_clicked)
+        button_clear.clicked.connect(self.button_clear_clicked)
+        button_clearentry.clicked.connect(self.button_clear_clicked)
+        button_backspace.clicked.connect(self.button_backspace_clicked)
         
         
 
@@ -108,40 +118,35 @@ class Main(QDialog):
         layout_operation2.addWidget(button_reciprocal)
         layout_operation2.addWidget(button_square)
         layout_operation2.addWidget(button_root)
-        layout_operation2.addWidget(button_divide)
+        layout_operation2.addWidget(button_division)
         
-        #3번째줄 
-        layout_operation3.addWidget(button_7)
-        layout_operation3.addWidget(button_8)
-        layout_operation3.addWidget(button_9)
+        #3번째줄 789
+        layout_operation3.addWidget(number_button_dict[7])
+        layout_operation3.addWidget(number_button_dict[8])
+        layout_operation3.addWidget(number_button_dict[9])
         layout_operation3.addWidget(button_product)
         
         
-        #4번째줄
-        layout_operation4.addWidget(button_4)
-        layout_operation4.addWidget(button_5)
-        layout_operation4.addWidget(button_6)
+        #4번째줄 456
+        layout_operation4.addWidget(number_button_dict[4])
+        layout_operation4.addWidget(number_button_dict[5])
+        layout_operation4.addWidget(number_button_dict[6])
         layout_operation4.addWidget(button_minus)
         
         
-        #5번째줄
-        layout_operation5.addWidget(button_1)
-        layout_operation5.addWidget(button_2)
-        layout_operation5.addWidget(button_3)
+        #5번째줄 123
+        layout_operation5.addWidget(number_button_dict[1])
+        layout_operation5.addWidget(number_button_dict[2])
+        layout_operation5.addWidget(number_button_dict[3])
         layout_operation5.addWidget(button_plus)
         
         #6번째줄
         layout_operation6.addWidget(button_plusmainus)
-        layout_operation6.addWidget(button_0)
+        layout_operation6.addWidget(number_button_dict[0])
         layout_operation6.addWidget(button_dot)
-        layout_operation6.addWidget(button_equal)         
-
-
+        layout_operation6.addWidget(button_equal)
         
         
-
-
-
         ### 각 레이아웃을 main_layout 레이아웃에 추가
         main_layout.addLayout(layout_equation_solution)
         
@@ -151,12 +156,7 @@ class Main(QDialog):
         main_layout.addLayout(layout_operation4)
         main_layout.addLayout(layout_operation5)
         main_layout.addLayout(layout_operation6)
-
-
         
-
-        
-
         self.setLayout(main_layout)
         self.show()
 
@@ -195,6 +195,14 @@ class Main(QDialog):
         solution = self.equation.text()   # soultion 결과 창에 같은 결과 나오도록 추가
         solution += solution[:-1]
         self.solution.setText(equation)
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    main = Main()
+    sys.exit(app.exec_())
+    
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
