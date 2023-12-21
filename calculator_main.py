@@ -200,6 +200,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     main = Main()
     sys.exit(app.exec_())
-    
-cv2.waitKey(0)
-cv2.destroyAllWindows()
