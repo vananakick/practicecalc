@@ -14,12 +14,12 @@ class Main(QDialog):
         ### 각 위젯을 배치할 레이아웃을 미리 만들어 둠
         layout_operation = QHBoxLayout()        
         
-        layout_operation1 = QHBoxLayout()   # +/- 0 . = 가장밑줄
-        layout_operation2 = QHBoxLayout()   #
-        layout_operation3 = QHBoxLayout()   #
-        layout_operation4 = QHBoxLayout()   #
-        layout_operation5 = QHBoxLayout()   #
-        layout_operation6 = QHBoxLayout()   #
+        layout_operation1 = QHBoxLayout()   
+        layout_operation2 = QHBoxLayout()   
+        layout_operation3 = QHBoxLayout()   
+        layout_operation4 = QHBoxLayout()   
+        layout_operation5 = QHBoxLayout()   
+        layout_operation6 = QHBoxLayout()   
         
         
 #         layout_number = QGridLayout()
@@ -39,15 +39,21 @@ class Main(QDialog):
     
 
         ### 사칙연상 버튼 생성 
-#         #6가지 버튼 추가
-#         button_remainder= QPushButton("%")  # 나머지
-#         button_clearentry = QPushButton("CE")  # CE
-#         button_clear = QPushButton("C")  # C
-#         button_reciprocal = QPushButton("1/x")  # 역수
-#         button_square = QPushButton("x²")  # 제곱
-#         button_rootQPushButton("√x")  # 제곱근
+
 
         # 계산기 첫줄부터 하나씩 생성
+    
+        #1번째줄
+        button_remainder= QPushButton("%")  # 나머지
+        button_clearentry = QPushButton("CE")  # CE
+        button_clear = QPushButton("C")  # C
+        button_backspace = QPushButton("<X]")
+        
+        #2번째줄
+        button_reciprocal = QPushButton("1/x")  # 역수
+        button_square = QPushButton("x²")  # 제곱
+        button_root = QPushButton("√x")  # 제곱근
+        button_divide = QPushButton("/")
         
         #3번째줄 789 *
         button_7 = QPushButton("7")
@@ -90,7 +96,19 @@ class Main(QDialog):
         
 
         ### 사칙연산 버튼을 layout_operation 레이아웃에 추가
+
         
+        #1번째줄
+        layout_operation1.addWidget(button_remainder)
+        layout_operation1.addWidget(button_clearentry)
+        layout_operation1.addWidget(button_clear)
+        layout_operation1.addWidget(button_backspace)
+        
+        #2번째줄
+        layout_operation2.addWidget(button_reciprocal)
+        layout_operation2.addWidget(button_square)
+        layout_operation2.addWidget(button_root)
+        layout_operation2.addWidget(button_divide)
         
         #3번째줄 
         layout_operation3.addWidget(button_7)
@@ -116,7 +134,7 @@ class Main(QDialog):
         layout_operation6.addWidget(button_plusmainus)
         layout_operation6.addWidget(button_0)
         layout_operation6.addWidget(button_dot)
-        layout_operation6.addWidget(button_equal)          
+        layout_operation6.addWidget(button_equal)         
 
 
         
@@ -127,6 +145,8 @@ class Main(QDialog):
         ### 각 레이아웃을 main_layout 레이아웃에 추가
         main_layout.addLayout(layout_equation_solution)
         
+        main_layout.addLayout(layout_operation1)
+        main_layout.addLayout(layout_operation2)
         main_layout.addLayout(layout_operation3)
         main_layout.addLayout(layout_operation4)
         main_layout.addLayout(layout_operation5)
