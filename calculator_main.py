@@ -9,23 +9,18 @@ class Main(QDialog):
     def init_ui(self):
         main_layout = QVBoxLayout()
 
-        main_layout = QVBoxLayout()
-
         ### 각 위젯을 배치할 레이아웃을 미리 만들어 둠
-        layout_operation = QHBoxLayout()        
-        
         layout_operation1 = QHBoxLayout()   
         layout_operation2 = QHBoxLayout()   
         layout_operation3 = QHBoxLayout()   
         layout_operation4 = QHBoxLayout()   
         layout_operation5 = QHBoxLayout()   
-        layout_operation6 = QHBoxLayout()   
+        layout_operation6 = QHBoxLayout()
         
-        
-#         layout_number = QGridLayout()
         layout_equation_solution = QFormLayout()
 
         ### 수식 입력과 답 출력을 위한 LineEdit 위젯 생성
+        
         label_equation = QLabel("Equation: ")
         label_solution = QLabel("")
         self.equation = QLineEdit("")
@@ -67,7 +62,7 @@ class Main(QDialog):
         button_minus = QPushButton("-")
         
         
-        # 5번째줄 123 +------------------------------------------------------------------
+        # 5번째줄 123 
         button_1 = QPushButton("1")
         button_2 = QPushButton("2")
         button_3 = QPushButton("3")
@@ -102,6 +97,13 @@ class Main(QDialog):
         button_clear.clicked.connect(self.button_clear_clicked)
         button_clearentry.clicked.connect(self.button_clear_clicked)
         button_backspace.clicked.connect(self.button_backspace_clicked)
+        
+#-----------------------------------------------------------------------------
+
+        button_reciprocal.clicked.connect(self.button_reciprocal_clicked)
+        button_square.clicked.connect(self.button_square_clicked)
+        button_root.clicked.connect(self.button_root_clicked)
+        
         
         
 
@@ -195,7 +197,31 @@ class Main(QDialog):
         solution = self.equation.text()   # soultion 결과 창에 같은 결과 나오도록 추가
         solution += solution[:-1]
         self.solution.setText(equation)
+        
 
+#-----------------------------------------------------
+# 역수 제곱 루트 매서드 추가       
+    def button_reciprocal_clicked(self):
+        equation = self.equation.text()
+        reciprocal = 1 / float(equation)
+        self.equation.setText(str(reciprocal))
+        self.solution.setText(str(reciprocal))
+
+            
+    def button_square_clicked(self):
+        equation = self.equation.text()
+        square = float(equation) ** 2
+        self.equation.setText(str(square))
+        self.solution.setText(str(square))
+
+
+    def button_root_clicked(self):
+        equation = self.equation.text()
+        root = float(equation) ** 0.5
+        self.equation.setText(str(root))
+        self.solution.setText(str(root))
+
+            
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main = Main()
@@ -203,8 +229,3 @@ if __name__ == '__main__':
     
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    main = Main()
-    sys.exit(app.exec_())
