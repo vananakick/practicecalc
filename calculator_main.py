@@ -9,23 +9,51 @@ class Main(QDialog):
     def init_ui(self):
         main_layout = QVBoxLayout()
 
+        
+#         btn1 = QHBoxLayout()
+#         btn2 = QHBoxLayout()
+#         btn3 = QHBoxLayout()
+#         btn4 = QHBoxLayout()
+        
+#         layout.addWidget(btn1)
+                
+        button_1= QPushButton("x")  # 나머지        
+        button_1.clicked.connect(lambda state, operation="x": self.button_operation_clicked(operation))
+        
         ### 각 위젯을 배치할 레이아웃을 미리 만들어 둠
         layout_operation = QHBoxLayout()
         layout_clear_equal = QHBoxLayout()
+        
+        layout_1 = QHBoxLayout()
+        layout_2 = QHBoxLayout()
+        layout_3 = QHBoxLayout()
+        
+        
         layout_number = QGridLayout()
         layout_equation_solution = QFormLayout()
 
         ### 수식 입력과 답 출력을 위한 LineEdit 위젯 생성
         label_equation = QLabel("Equation: ")
-        label_solution = QLabel("")        # 이름 없애기
+        label_solution = QLabel("")
         self.equation = QLineEdit("")
         self.solution = QLineEdit("")
 
         ### layout_equation_solution 레이아웃에 수식, 답 위젯을 추가
-#        layout_equation_solution.addRow(label_equation, self.equation)  # 숫자 입력 표시부분 통합을 위해 주석처리
+#         layout_equation_solution.addRow(label_equation, self.equation)   # 주석처리
         layout_equation_solution.addRow(label_solution, self.solution)
+    
+    
+    
 
-        ### 사칙연상 버튼 생성
+        ### 사칙연상 버튼 생성 
+#         #6가지 버튼 추가
+        button_remainder= QPushButton("%")  # 나머지
+#         button_clearentry = QPushButton("CE")  # CE
+#         button_clear = QPushButton("C")  # C
+#         button_reciprocal = QPushButton("1/x")  # 역수
+#         button_square = QPushButton("x²")  # 제곱
+#         button_rootQPushButton("√x")  # 제곱근
+        
         button_plus = QPushButton("+")
         button_minus = QPushButton("-")
         button_product = QPushButton("x")
@@ -36,12 +64,23 @@ class Main(QDialog):
         button_minus.clicked.connect(lambda state, operation = "-": self.button_operation_clicked(operation))
         button_product.clicked.connect(lambda state, operation = "*": self.button_operation_clicked(operation))
         button_division.clicked.connect(lambda state, operation = "/": self.button_operation_clicked(operation))
+        
+        button_remainder.clicked.connect(lambda state, operation="%": self.button_operation_clicked(operation))
+        
+        
 
         ### 사칙연산 버튼을 layout_operation 레이아웃에 추가
+        layout_operation.addWidget(button_plus)
+        layout_operation.addWidget(button_plus)
+        layout_operation.addWidget(button_plus)
+        
+        
         layout_operation.addWidget(button_plus)
         layout_operation.addWidget(button_minus)
         layout_operation.addWidget(button_product)
         layout_operation.addWidget(button_division)
+        
+        layout_operation.addWidget(button_remainder)
 
         ### =, clear, backspace 버튼 생성
         button_equal = QPushButton("=")
@@ -57,6 +96,9 @@ class Main(QDialog):
         layout_clear_equal.addWidget(button_clear)
         layout_clear_equal.addWidget(button_backspace)
         layout_clear_equal.addWidget(button_equal)
+        
+        
+        
 
         ### 숫자 버튼 생성하고, layout_number 레이아웃에 추가
         ### 각 숫자 버튼을 클릭했을 때, 숫자가 수식창에 입력 될 수 있도록 시그널 설정
@@ -96,7 +138,7 @@ class Main(QDialog):
         equation = self.equation.text()
         equation += str(num)
         self.equation.setText(equation)
-        solution = self.equation.text()        # soultion 결과 창에 같은 결과 나오도록 추가
+        solution = self.equation.text()    # soultion 결과 창에 같은 결과 나오도록 추가
         solution += str(num)
         self.solution.setText(equation)
 
@@ -104,7 +146,7 @@ class Main(QDialog):
         equation = self.equation.text()
         equation += operation
         self.equation.setText(equation)
-        solution = self.equation.text()        # soultion 결과 창에 같은 결과 나오도록 추가
+        solution = self.equation.text()   # soultion 결과 창에 같은 결과 나오도록 추가
         solution += operation
         self.solution.setText(equation)
 
@@ -121,12 +163,14 @@ class Main(QDialog):
         equation = self.equation.text()
         equation = equation[:-1]
         self.equation.setText(equation)
-        solution = self.equation.text()        # soultion 결과 창에 같은 결과 나오도록 추가
+        solution = self.equation.text()   # soultion 결과 창에 같은 결과 나오도록 추가
         solution += solution[:-1]
         self.solution.setText(equation)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main = Main()
     sys.exit(app.exec_())
+    
+cv2.waitKey(0)
+cv2.destroyAllWindows()
